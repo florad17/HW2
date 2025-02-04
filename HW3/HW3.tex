@@ -45,9 +45,16 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
         \item[(c)]
     \end{enumerate}
     
-    %Question 4
+    %Question 4 (Josh)
     \item 
-
+    \begin{proof}
+        Suppose there exists, two degree $n$ polynomials, $p_1$ and $p_2$, such that
+        \[p_{1}(x_i)=y_i=p_{2}(x_i)\]
+        for all $0\leq i\leq n$. It suffices to show that $p_1(x)=p_2(x)$. Therefore, the polynomial, 
+        \[f(x)=p_{1}(x)-p_{2}(x)\]
+        is a polynomial of degree at most $n$, with $n+1$ distinct roots, $x_0,x_1,\ldots,x_n$. However, by the Fundamental Theorem of Algebra, $f$ must be the $0$ polynomial.\footnote{Since otherwise it would be a non-zero degree $n$ polynomial with more than $n$ distinct roots.}
+        Therefore, \[f(x)=0,\] which means that $p_1(x)=p_2(x)$, which is the desired result.
+    \end{proof}
     %Question 5
     \item
     \begin{enumerate}
