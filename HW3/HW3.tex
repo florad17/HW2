@@ -104,6 +104,13 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
     %Question 7
     \item
     \begin{enumerate}
-	|f(x)-p(x)| = (f^(n+1)(ξ))/((n+1)!)Π[i=0 to n](x-xi). Since x0,x1,...,xn are evenly spaced, |Π[i=0 to n](x-xi)| <= (1/4)(((xn-x0)/n)^(n+1))(n!). So |f(x)-p(x)| = |(f^11(ξ))/(11!)((1/4)(((1.6875-0)/10)^11)(10!))|. f(x) = sin(0.16875x), so |f(x)-p(x)| = (max(|-((0.16875)^11)cos(0.16875(x=0 or x=1.6875)|))/(11!)((1/4)(((0.16875)^11)(10!)). Since |-((0.16875)^11)cos(0.16875(x=0)| = 3.15996008e-9, and |-((0.16875)^11)cos(0.16875(x=1.6875)| = 3.15867894e-9, the maximum value of f^11 is at x=0. Then |-((0.16875)^11)cos(0.16875(1.6875)|)/(11!)((1/4)(((0.16875)^11)(10!)) <= 2.178e-19 Thus, the error bound of |f(x)-p(x)| <= 2.178(10^(-9)) on [0, 1.6875].
+    
+	|f(x)-p(x)| = (f^(n+1)(ξ))/((n+1)!)Π[i=0 to n](x-xi). Since x0,x1,...,xn are evenly spaced, |Π[i=0 to n](x-xi)| <=
+ (1/4)(((xn-x0)/n)^(n+1))(n!). So |f(x)-p(x)| = |(f^11(ξ))/(11!)((1/4)(((1.6875-0)/10)^11)(10!))|. f(x) = sin(0.16875x), so 
+ |f(x)-p(x)| = (max(|-((0.16875)^11)cos(0.16875(x=0 or x=1.6875)|))/(11!)((1/4)(((0.16875)^11)(10!)). Since |-
+ ((0.16875)^11)cos(0.16875(x=0)| = 3.15996008e-9, and |-((0.16875)^11)cos(0.16875(x=1.6875)| = 3.15867894e-9, the maximum 
+ value of f^11 is at x=0. Then |-((0.16875)^11)cos(0.16875(1.6875)|)/(11!)((1/4)(((0.16875)^11)(10!)) <= 2.178e-19 Thus, 
+ the error bound of |f(x)-p(x)| <= 2.178(10^(-9)) on [0, 1.6875].
+ 
     \end{enumerate}
 \end{document}
