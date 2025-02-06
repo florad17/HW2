@@ -32,17 +32,31 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
     \end{enumerate}
 
 
-    %Question 3
+    %Question 3 (Josh)
     \item
     \begin{enumerate}
         %3a
-        \item[(a)] 
-        
-        %3b
-        \item[(b)]
-        
+	  \item[(a)] Since $f$ is a ``suitably'' differentiable function, we may assume that $f^{(i)}(x)$ is continuous in some ``suitable'' region around $p$, for all $0\leq i\leq m$. Since $p$ is a root of multiplicity $m$, 
+		We must have that $f^{(m-1)}(p)=0$ and $f^{(m)}(p)\neq 0$. Therefore, by repeated application of L'Hopital's Rule $m-1$ times, and by the fact that $f\in C^m$, we have
+		\[
+		  \lim_{x\to p}\mu(x)=\lim_{x\to p} \frac{f(x)}{f'(x)} = \lim_{x\to p}\frac{f^{(m-1)}(x)}{f^{(m)}(x)}=\frac{f^{(m-1)}(p)}{f^{(m)}(p)}=0	
+		.\] 
+		which us the desired result.	
+		%3b
+	  \item[(b)] Note that since $p$ is a root of $f$ with multiplicity $m$, there exists a function\footnote{which is also differentiable in a suitable interval.} $g(x)$ such that 
+		  \[f(x)={(x-p)}^m g(x).\] 
+		where $g(p)\neq 0$. Therefore, we have 
+		  \[
+		  \mu(x)=\frac{f(x)}{f'(x)}
+		  =\frac{{(x-p)}^m g(x)}{m{(x-p)}^{p-1}g(x)+{(x-p)}^m g'(x)}=\frac{(x-p)g(x)}{mg(x)+(x-p)g'(x)}
+	 	 .\] 
+		 If we let $h(x):=\frac{g(x)}{mg(x)+(x-p)g'(x)}$, we then have
+		 \[h(p)=\frac{g(p)}{mg(p)}=\frac{1}{m}\neq 0.\] 
+		Thus, since $\mu(x)=(x-p)h(x)$, and $h(p)\neq 0$, $p$ must be a simple root of $\mu(x)$. Therefore, $\mu'(p)\neq 0$, which is the desired result. 
         %3c
-        \item[(c)]
+        \item[(c)] For $x\neq p$, by the quotient rule, we have 
+		\[\frac{\mu(x)}{\mu'(x)}=\frac{f(x)}{f'(x)}\frac{{f'(x)}^2}{{f'(x)}^2-f(x)f''(x)}=\frac{f(x)f'(x)}{{f'(x)}^2-f(x)f''(x)}\]
+		which is the desired result.
     \end{enumerate}
     
     %Question 4 (Josh)
