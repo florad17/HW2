@@ -88,6 +88,31 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
     \item
 
     %Question 7
-    \item
+    \item We know that 
+   
+    \[ |f(x) - p(x)| = \frac{f^{(n+1)}(\xi)}{(n+1)!}\prod_{i=0}^{n}x-x_{i} \]
+    
+    Since $x_0, x_1, ..., x_n$ are evenly spaced,
+
+    \[ \prod_{i=0}^{n} (x-x_{i}) \leq \frac{1}{4}((\frac{x_{n}-x_{0}}{n})^{n+1}(n!)) \]
+    
+    So, 
+    \[ |f(x)-p(x)| = |(\frac{f^{11}(\xi)}{11!})(\frac{1}{4})(\frac{1.6875-0}{10})^{11}(10!)\]
+    $f(x)=\sin(0.16875x)$, so 
+    \[ |f(x)-p(x)| = \max(-\frac{((0.16875)^{11}\cos(0.16875)(0))}{11!}, -\frac{((0.16875)^{11}\cos(0.16875)(1.6785))}{11!})  \].
+
+    Since
+    \[|-((0.16785)^{11}(\cos(0.16785)(x=0)))| = 3.15996008e^{-9}\]
+    and 
+    \[|-((0.16785)^{11}(\cos(0.16785)(x=1.6875)))| = 3.15867894e^{-9}\]
+
+    The maximum value of $f^{11}$ is at $x=0$. Then,
+    
+    \[|(-\frac{(0.16875)^{11}(\cos(0.16875(1.6875)|))}{11!})\frac{1}{4}(0.16875)^{11}(10!) \leq 2.178e^{-19} \].
+
+    Then, the error bound of $|f(x)-p(x)| \leq 2.178(10^{-9})$ on $[0, 1.6875]$.
+    
+ % -((0.16875)^11)cos(0.16875(1.6875)|)/(11!)((1/4)(((0.16875)^11)(10!)) <= 2.178e-19 Thus, 
+ %the error bound of |f(x)-p(x)| <= 2.178(10^(-9)) on [0, 1.6875].
 \end{enumerate}
 \end{document}
