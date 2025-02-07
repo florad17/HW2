@@ -17,7 +17,19 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
 \begin{enumerate}[leftmargin=2em]
     %Question 1
     \item
-
+	\begin{proof}
+	  It is sufficient to show that 
+	  \[\lim_{n\to \infty}\frac{|p_{n+1}-p|}{|p_{n}-p|}=g'(p)\]
+	  since letting $\lambda = g'(p)$ would complete the proof. By the mean value theorem on $[p_n,p]$, or $[p,p_n]$, there exists a $\xi_n\in (p_n,p)$ such that
+	   \[
+		 \frac{|g(p_n)-g(p)|}{|p_n-p|}=\frac{|p_{n+1}-p|}{|p_{n}-p|}= g'(\xi_n)
+	  .\] 
+	  Since $p_n \xrightarrow{n\to \infty} p$, we must have	$\xi_{n}\xrightarrow{n\to \infty} p$. Therefore, by the continuity of $g'$, we must have 
+	  \[g'(\xi_n)\xrightarrow{n\to \infty} g'(p).\] 
+	  Therefore, taking the limit of both sides of the first equation gives
+	  \[\lim_{n\to \infty } \frac{|p_{n+1}-p|}{|p_{n}-p|}=\lim_{n\to \infty} g'(\xi_n)=g'(p)\]
+	  which is the desired result.
+	\end{proof}
     %Question 2
     \item 
     \begin{enumerate}
