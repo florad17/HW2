@@ -53,8 +53,54 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
     \begin{enumerate}
         %6a
         \item
+        \begin{proof}
+            Note that by the triangle inequality, we have
+            \[|m_{kk}x_k|=\left| \sum_{j\neq k} m_{kj}x_{j}\right|\leq \sum_{j\neq k} |m_{kj}||x_j|.\]
+            By definition, $k$ was chosen such that $|x_{k}|= \max\limits_{1\leq j\leq n} |x_j|$. Therefore, since $|m_{kj}|$ is non-negative for all $j\neq k$, we must have
+            \[|m_{kk}||x_k|=|m_{kk}x_k|\leq \sum_{j\neq k} |m_{kj}||x_j| \leq \sum_{j\neq k} |m_{kj}||x_k|=|x_k|\sum_{j\neq k} |m_{kj}|.\]
+            Dividing by $|x_k|$ gives
+            \[|m_{kk}|\leq \sum_{j\neq k} |m_{kj}|\]
+            which is the desired result.
+        \end{proof}
         %6b
         \item
+        We may first assume that $h_i>0$ for all $i$, since we may simply choose the nodes $x_i$ in increasing order\footnote{Also note that we assume each node is distinct, therefore, $h_{i}\neq 0$ for all i}.
+        Note that the matrix given by
+        \[A_{ij}=\begin{cases}
+            2(h_i+h_{i+1}) & \text{ if } i=j\\
+            h_i & \text{ if } j = i-1 \text{ or } j= i+1\\
+            0 & \text{otherwise}
+        \end{cases}\]
+
+        satisfies the following for each $i$:
+        \[|A_{ii}|=|2(h_{i}+h_{i+1})|=2(h_{i}+h_{i+1})>2h_{i}=\sum_{j\neq i} A_{ij}.\]
+
+        Therefore, $A$ is strictly diagonally dominant, and thus invertible. 
+
+        \bigskip
+
+        Furthermore, note that since $a_j=f(x_{j})$, the constant coefficients, $a_j$ are uniquely determined\footnote{That is to say, for the family $\{S_j\}_{0\leq j \leq n-1}$ to be a cubic spline on $f$, the conditions derived in class must be satisfied. Showing that the coefficients which satisfy these conditions are unique, then shows that the cubic spline is unique. This will be assumed from now on.} by $f$. Since $A$ is invertible, there is a unique solution to the system
+        \[A\mathbf{x}=\mathbf{b}\]
+        where
+        \begin{align*}
+            \mathbf{x} = \begin{pmatrix}
+                c_1 \\ 
+                c_2 \\ 
+                \vdots \\
+                c_{n-1}\\
+            \end{pmatrix} & & \text{and} && \mathbf{b}=
+            \begin{pmatrix}
+                \frac{3}{h_{1}}(a_{2}-a_{1}) - \frac{3}{h_{0}}(a_{1}-a_{0})\\
+                \frac{3}{h_{2}}(a_{3}-a_{2}) - \frac{3}{h_{1}}(a_{2}-a_{1})\\ 
+                \vdots\\
+                \frac{3}{h_{n-1}}(a_{n}-a_{n-1})- \frac{3}{h_{n-2}}(a_{n-1}-a_{n-2})
+            \end{pmatrix}.
+        \end{align*}
+        Therefore, since $a_j$ is uniquely determined by $f$, so is\footnote{We also note that $c_0=c_n=0$, so they are also unique.} $c_j$, and by extension 
+        \[b_j:= \frac{1}{h_{j}}(a_{j+1}-a_{j})-\frac{h_{j}}{3}(c_{j+1}+2c_{})\]
+        and 
+        \[d_j:=\frac{1}{3h_{j}}(c_{j+1}-c_{j})\]
+        are also uniquely determined by $f$. Therefore, the family $\{S_{j}\}_{0\leq j\leq n-1}$ is the unique cubic spline on $f$, which is the desired result.
     \end{enumerate}
 \end{enumerate}
 \end{document}
