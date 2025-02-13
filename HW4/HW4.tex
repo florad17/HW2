@@ -47,7 +47,18 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
 
     %Question 5 (Anton)
     \item
-
+    \begin{enumerate}
+        A natural cubic spline has second derivatives equal to \(0\) at the endpoints. The second derivative of a cubic 
+        polynomial is a linear function. Let \(f(x)=ax^{3}+bx^{2}+cx+d\) be a general cubic polynomial, where \(a\ne 0\). 
+        The first derivative is \(f^{\prime }(x)=3ax^{2}+2bx+c\). The second derivative is \(f^{\prime \prime }
+        (x)=6ax+2b\). For \(f(x)\) to be its own natural cubic spline, \(f^{\prime \prime }(x_{0})=0\) and 
+        \(f^{\prime\prime }(x_{1})=0\). This means \(6ax_{0}+2b=0\) and \(6ax_{1}+2b=0\). Subtracting the two equations, we 
+        get \(6a(x_{1}-x_{0})=0\). Since \(x_{1}\ne x_{0}\), it must be that \(a=0\). If \(a=0\), then \(2b=0\), so 
+        \(b=0\). This contradicts the assumption that \(f(x)\) is a cubic polynomial (\(a\ne 0\)). Therefore, \(f(x)\) 
+        cannot be its own natural cubic spline unless \(f^{\prime \prime }(x)\) is identically zero, which means \(f(x)\) 
+        is at most a linear function.
+    \end{enumerate}
+    
     %Question 6 (Joshua)
     \item
     \begin{enumerate}
