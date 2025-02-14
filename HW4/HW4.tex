@@ -20,8 +20,33 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
     \begin{enumerate}
         %1a        
         \item
+        We are given the points $(0,7), (2,11), (3,28), (4, 63)$, so $f(x_0) = 7, f(x_1)=11, f(x_2)=28$, $f(x_3)=63$.
+        
+        The first order divided differences are as follows:
+        \[f[x_0, x_1] = \frac{7-11}{0-2} = 2\]
+        \[f[x_1, x_2] = \frac{28-11}{3-2} = 17\]
+        \[f[x_2, x_3] = \frac{63-28}{4-3} = 35\]
+        The second order differences are as follows:
+        \[f[x_0, x_1, x_2] = \frac{17-2}{3-0} = 5\]
+        \[f[x_1, x_2, x_3] = \frac{35-17}{4-2} = 4\]
+        And the third order difference is:
+        \[f[x_0, x_1, x_2, x_3] = \frac{9-5}{4-0} = 1\]
+
+        Using the Newton formula,
+        \[p_n(x)=f[x_0]+f[x_0,x_1](x-x_0) + f[x_0, x_1, x_2](x-x_0)(x-x_1)+...\]
+        We can write $p_1$ as
+        \[p_1(x) = 7+2(x-0) = 7+2x\]
+        $p_2$ as
+        \[p_2(x) = 7+2x+5(x-0)(x-2) = 5x^2-8x+7\]
+        and $p_3$ as
+        \[p_3(x) = 5x^2-8x+7+1(x-0)(x-2)(x-3) = x^3-2x+7\]
+
         %1b
-        \item
+        \item 
+        \[ \int_{0}^{4}(x^3-2x+7)dx \]
+        \[ = \int_{0}^{4}x^3dx - \int_{0}^{4}2xdx + \int_{0}^{4}7dx\]
+        \[ = (\frac{x^4}{4} - x^2 + 7)\vert_{0}^{4}\]
+        \[ = (64 - 16 + 28) - 0 = 76\]
     \end{enumerate}
 
     %Question 2
