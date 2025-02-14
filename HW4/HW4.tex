@@ -206,8 +206,75 @@ S_4(x) = 3 + 1(x - 4) - 3(x - 4)^2 + 1(x - 4)^3, \quad 4 \leq x \leq 5.
     \begin{enumerate}
         %4a
         \item
+        We are given the following data points:
+        \[ (x_0, y_0) = (0.1, -0.29004996), \quad (x_1, y_1) = (0.2, -0.56079734), \quad (x_2, y_2) = (0.3, -0.81401972).   \]
+        The step sizes are:
+        \[h_1 = x_1 - x_0 = 0.2 - 0.1 = 0.1, \quad h_2 = x_2 - x_1 = 0.3 - 0.2 = 0.1.\]
+        Using the cubic spline formulation, we compute the right-hand side: \[d_1 = \frac{6}{h_1} \left( \frac{y_2 - y_1}{h_2} - \frac{y_1 - y_0}{h_1} \right).\]
+        \[= \frac{6}{0.1} \left( \frac{-0.81401972 + 0.56079734}{0.1} - \frac{-0.56079734 + 0.29004996}{0.1} \right).\]
+        \[= 60 \left( \frac{-0.25322238}{0.1} - \frac{-0.27074738}{0.1} \right).\]
+        \[= 60 (-2.5322238 + 2.7074738) = 60 (0.17525) = 10.515.\]
+        Since this is a natural spline the boundary conditions are:
+        \[M_0 = 0, \quad M_2 = 0.\]
+        Thus, solving for \( M_1 \):
+        \[2(h_1 + h_2) M_1 = d_1.\]
+        \[2(0.1 + 0.1) M_1 = 10.515.\]
+        \[0.4 M_1 = 10.515.\]
+        \[M_1 = 26.2875.\]
+        The cubic spline equation takes the form:
+        \[S_i(x) = a_i + b_i (x - x_i) + c_i (x - x_i)^2 + d_i (x - x_i)^3.\]
+        For \( S_1(x) \), in \( [0.1, 0.2] \)
+        \[a_1 = y_0 = -0.29004996.\]
+        \[b_1 = \frac{y_{1} - y_0}{h_1} - \frac{h_1}{6} (M_1 + 2M_0).\]
+        \[= \frac{-0.56079734 + 0.29004996}{0.1} - \frac{0.1}{6} (26.2875).\]
+        \[= -2.7074738 - 0.438125 = -3.1456.\]
+        \[c_1 = \frac{M_0}{2} = 0.\]
+        \[d_1 = \frac{M_1 - M_0}{6h_1} = \frac{26.2875 - 0}{6(0.1)} = \frac{26.2875}{0.6} = 4.3813.\]
+        Thus, the first spline equation is:
+        \[S_1(x) = 4.3813 (x - 0.1)^3 - 1.3144 (x - 0.1)^2 - 2.6198 (x - 0.1) - 1.9303 \times 10^{-2}.\]
+        For \( S_2(x) \), in \( (0.2, 0.3] \)
+        \[a_2 = y_1 = -0.56079734.\]
+        \[b_2 = \frac{y_2 - y_1}{h_2} - \frac{h_2}{6} (M_2 + 2M_1).\]
+        \[= \frac{-0.81401972 + 0.56079734}{0.1} - \frac{0.1}{6} (0 + 2(26.2875)).\]
+        \[= -2.5322238 - 0.87625 = -3.4085.\]
+        \[c_2 = \frac{M_1}{2} = \frac{26.2875}{2} = 13.1438.\]
+        \[d_2 = \frac{M_2 - M_1}{6h_2} = \frac{0 - 26.2875}{6(0.1)} = \frac{-26.2875}{0.6} = -4.3813.\]
+        Thus, the second spline equation is:
+        \[S_2(x) = -4.3813 (x - 0.2)^3 + 3.9431 (x - 0.2)^2 - 3.6713 (x - 0.2) + 5.0797 \times 10^{-2}.\]
+        So \[
+            S(x) =
+            \begin{cases} 
+            4.3813 \cdot x^3 - 1.3144 \cdot x^2 - 2.6198 \cdot x - 1.9303 \times 10^{-2}, & \text{if } x \in [0.1,0.2], \\
+            -4.3813 \cdot x^3 + 3.9431 \cdot x^2 - 3.6713 \cdot x + 5.0797 \times 10^{-2}, & \text{if } x \in [0.2,0.3].
+            \end{cases}
+            \]
         %4b
         \item
+        Since we must find $f(0.18)$ and $0.18 \in [0.1,0.2]$, we use $S_2(x)$.
+        \[S(0.18) = 4.3813(0.18)^3-1.3144(0.18)^2-2.6198(0.18)-1.9303 \cdot 10^{-2}\]
+        \[S(0.18) = -0.507873\]
+        \[S'(x)=\frac{d}{dx}(4.3813x^3-1.3144x^2-2.6198x-0.019303)\]
+        \[=13.1439x^2-2.6288x-2.6198\]
+        Substituting $x=0.18$:
+        \[S'_1(0.18) = 13.1439(0.18)^2-2.6288(0.18)-2.6198 = -2.6671\]
+        To find the error
+        \[f(0.18) = (0.18)^2 \cos(0.18) - 3(0.18).\]
+        \[= 0.0324 \cos(0.18) - 0.54.\]
+        \[= 0.0324 \times 0.983 - 0.54.\]
+        \[= 0.03186 - 0.54 = -0.50814.\]
+        This means that the error is
+        \[| f(0.18) - S(0.18) | = |-0.50814 - (-0.507873)|.\]
+        \[= | -0.000267 | = 0.000267.\]
+        For $S'(x)$, we compute
+        \[f'(x) = 2x \cos x - x^2 \sin x - 3.\]
+        \[f'(0.18) = 2(0.18) \cos(0.18) - (0.18)^2 \sin(0.18) - 3.\]
+        \[= 0.36 \times 0.983 - 0.0324 \times 0.179 - 3.\]
+        \[= 0.35388 - 0.0057996 - 3.\]
+        \[= -2.6519.\]
+        Therefore the error is
+        \[| f'(0.18) - S'(0.18) | = |-2.6519 - (-2.6671)|.\]
+        \[= | 0.0152 |.\]
+
     \end{enumerate}
 
     %Question 5 (Anton)
@@ -248,9 +315,9 @@ S_4(x) = 3 + 1(x - 4) - 3(x - 4)^2 + 1(x - 4)^3, \quad 4 \leq x \leq 5.
             0 & \text{otherwise}
         \end{cases}\]
 
-        satisfies the following for each $i\neq 1$ and $i\neq n-1$:
+        satisfies the following for each $i$:
         \[|A_{ii}|=|2(h_{i}+h_{i+1})|=2(h_{i}+h_{i+1})>2h_{i}=\sum_{j\neq i} A_{ij}.\]
-        If $i=1$ or $i=n-1$, then we write that $2h_{i}>h_{i}=\sum_{j\neq i} A_{ij}$.
+
         Therefore, $A$ is strictly diagonally dominant, and thus invertible. 
 
         \bigskip
