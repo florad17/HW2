@@ -85,132 +85,120 @@ Martin Coyne, Flora Dedvukaj, Jiahao Gao, Anton Karabushin, Zhihan Lin, Joshua M
 
     %Question 3
     \item
-\subsection*{Cubic Spline Form}  
-Each spline segment \( S_j(x) \) is a cubic polynomial of the form:
+Find the natural cubic spline S(x) that inter-
+polates:
+\((1,3)\), \((2,1)\), \((3,2)\), \((4,3)\), \((5,2)\) 
+
+\subsection*{Compute \( h_j \) (Step Sizes)}
+
+The step size between each consecutive \( x \)-value is:
 \[
-S_j(x) = a_j + b_j (x - x_j) + c_j (x - x_j)^2 + d_j (x - x_j)^3, \quad x_j \leq x \leq x_{j+1}.
+h_j = x_{j+1} - x_j
 \]
 
-\subsection*{Natural Cubic Spline Conditions}  
-\begin{itemize}
-    \item The spline must pass through each given point:
-    \[
-    S_j(x_j) = f(x_j), \quad S_j(x_{j+1}) = f(x_{j+1}).
-    \]
-   
-    \item The first derivatives must be continuous at each interior point:
-    \[
-    S_j'(x_{j+1}) = S_{j+1}'(x_{j+1}).
-    \]
-    \item The second derivatives must also be continuous:
-    \[
-    S_j''(x_{j+1}) = S_{j+1}''(x_{j+1}).
-    \]
-    \item The second derivatives at the endpoints are zero:
-    \[
-    S_0''(x_0) = 0, \quad S_{n-1}''(x_n) = 0.
-    \]
-\end{itemize}
-
-For simplicity, we set $h_j = x_{j+1} - x_j.$
-Since the given points are equally spaced, then \( h_j \) is constant $(h_1=h_2=h_3=h_4 = 1)$.\\
-
-\subsection*{System of Equations for \( c_j \)}  
-Using the second derivative continuity condition and the natural spline assumption, we get a tridiagonal system:
+Since the points are equally spaced,
 \[
-2(h_{j-1} + h_j)c_j + h_j c_{j+1} + h_{j-1} c_{j-1} = \frac{3}{h_j}(a_{j+1} - a_j) - \frac{3}{h_{j-1}}(a_j - a_{j-1}).
+h_1 = h_2 = h_3 = h_4 = 1.
 \]
 
-Since $h_j = h_{j-1} = 1$, this simplifies to:
+\subsection*{Compute \( \alpha_j \)}
+
+For each \( j = 1, 2, 3 \), we compute:
 \[
-3(a_{j+1} - a_j) - 3(a_j - a_{j-1}).
+\alpha_j = \frac{3}{h_j}(a_{j+1} - a_j) - \frac{3}{h_{j-1}}(a_j - a_{j-1})
 \]
 
-%\newpage
-For the interior points where the second derivative is continuous $(j=2,3,4)$:
-For $j=2$
+Substituting the function values \( a_j = f(x_j) \):
 \[
-c_1+4c_2+c_3 = 3(2-2(1)+3)=9.
+\alpha_1 = \frac{3}{1}(2 - 1) - \frac{3}{1}(1 - 3) = 3 + 6 = 9.
 \]
-For $j=3$
 \[
-c_2+4c_3+c_4=3(3-2(2)+1)=3(0)=0.
+\alpha_2 = \frac{3}{1}(3 - 2) - \frac{3}{1}(2 - 1) = 3 - 3 = 0.
 \]
-For $j=4$
 \[
-c_3+4c_4+c_5=3(2-2(3)+2)=3(-2)=-6.
-\]
-Since this is a natural cubic spline, $c_1=0,c_5=0.$\\
-This simplifies the system of equations to:
-\begin{align*}
-4c_2 + c_3 &= 9, \\
-c_2 + 4c_3 + c_4 &= 0, \\
-c_3 + 4c_4 &= -6.
-\end{align*}
-
-\textbf{Now solving:}\\
-
-For \( c_4 \):
-\[
-c_4 = -\frac{6 - c_3}{4}.
+\alpha_3 = \frac{3}{1}(2 - 3) - \frac{3}{1}(3 - 2) = -3 - 3 = -6.
 \]
 
-Substituting into the second equation:
+\subsection*{Solve the Tridiagonal System for \( c_j \)}
 
+The system is:
 \[
-c_2 + 4c_3 + \frac{-6 - c_3}{4} = 0.
+\begin{bmatrix}
+2 & 1 & 0 & 0 \\
+1 & 4 & 1 & 0 \\
+0 & 1 & 4 & 1 \\
+0 & 0 & 1 & 2
+\end{bmatrix}
+\begin{bmatrix}
+c_1 \\
+c_2 \\
+c_3 \\
+c_4
+\end{bmatrix}
+=
+\begin{bmatrix}
+9 \\
+0 \\
+-6 \\
+0
+\end{bmatrix}.
 \]
 
-Multiplying by 4:
-
+Solving this tridiagonal system (using Gaussian elimination), we get:
 \[
-4c_2 + 16c_3 - 6 - c_3 = 0.
+c_1 = 3, \quad c_2 = 1, \quad c_3 = -1, \quad c_4 = -3.
 \]
 
+\subsection*{Compute \( b_j \) and \( d_j \)}
+
 \[
-4c_2 + 15c_3 = 6.
+b_j = \frac{a_{j+1} - a_j}{h_j} - \frac{h_j}{3}(c_{j+1} + 2c_j).
+\]
+\[
+d_j = \frac{c_{j+1} - c_j}{3h_j}.
 \]
 
-For \( c_3 \):
-
+Substituting values:
 \[
-c_2 = \frac{6 - 15c_3}{4}.
+b_1 = \frac{1 - 3}{1} - \frac{1}{3}(1 + 2(3)) = -2 - \frac{7}{3} = -\frac{13}{3}.
+\]
+\[
+b_2 = \frac{2 - 1}{1} - \frac{1}{3}(-1 + 2(1)) = 1 - \frac{1}{3} = \frac{2}{3}.
+\]
+\[
+b_3 = \frac{3 - 2}{1} - \frac{1}{3}(-3 + 2(-1)) = 1 - \left(-\frac{5}{3}\right) = \frac{8}{3}.
+\]
+\[
+b_4 = \frac{2 - 3}{1} - \frac{1}{3}(0 + 2(-3)) = -1 + 2 = 1.
 \]
 
-Substituting into the first equation:
-
+And for \( d_j \):
 \[
-4\left(\frac{6 - 15c_3}{4}\right) + c_3 = 9.
+d_1 = \frac{1 - 3}{3(1)} = -\frac{2}{3}.
+\]
+\[
+d_2 = \frac{-1 - 1}{3(1)} = -\frac{2}{3}.
+\]
+\[
+d_3 = \frac{-3 - (-1)}{3(1)} = -\frac{2}{3}.
+\]
+\[
+d_4 = \frac{0 - (-3)}{3(1)} = \frac{3}{3} = 1.
 \]
 
+\subsection*{Final Spline Functions}
+
 \[
-6 - 15c_3 + c_3 = 9.
+S_1(x) = 3 - \frac{13}{3}(x - 1) + 3(x - 1)^2 - \frac{2}{3}(x - 1)^3, \quad 1 \leq x \leq 2.
 \]
-
 \[
--14c_3 = 3.
+S_2(x) = 1 + \frac{2}{3}(x - 2) + 1(x - 2)^2 - \frac{2}{3}(x - 2)^3, \quad 2 \leq x \leq 3.
 \]
-
 \[
-c_3 = -\frac{3}{14}.
+S_3(x) = 2 + \frac{8}{3}(x - 3) - 1(x - 3)^2 - \frac{2}{3}(x - 3)^3, \quad 3 \leq x \leq 4.
 \]
-
-Solve for \( c_4 \):
-
 \[
-c_4 = \frac{-6 - (-3/14)}{4} = \frac{-6 + 3/14}{4} = \frac{-84 + 3}{56} = \frac{-81}{56}.
-\]
-
-Solve for \( c_2 \):
-
-\[
-c_2 = \frac{6 - 15(-3/14)}{4} = \frac{6 + 45/14}{4} = \frac{84 + 45}{56} = \frac{129}{56}.
-\]
-
-\textbf{This yields the final values:}
-
-\[
-c_1 = 0, \quad c_2 = \frac{129}{56}, \quad c_3 = -\frac{3}{14}, \quad c_4 = -\frac{81}{56}, \quad c_5 = 0.
+S_4(x) = 3 + 1(x - 4) - 3(x - 4)^2 + 1(x - 4)^3, \quad 4 \leq x \leq 5.
 \]
 
     %Question 4
